@@ -62,7 +62,8 @@ class Pic
       "id" => results.first["id"].to_i,
       "name" => results.first["name"],
       "picture" => results.first["picture"],
-      "description" => results.first["description"]
+      "description" => results.first["description"],
+      "liked" => results.first["liked"]
     }
   end
 
@@ -74,7 +75,7 @@ class Pic
   def self.update(id, opts)
     results = DB.exec(
       <<-SQL
-        UPDATE pets
+        UPDATE pics
         SET name='#{opts["name"]}', picture='#{opts["picture"]}', description='#{opts["description"]}'
         WHERE id=#{id}
         RETURNING id, name, picture, description;
@@ -83,7 +84,8 @@ class Pic
     return {
       "name" => results.first["name"],
       "picture" => results.first["picture"],
-      "description" => results.first["description"]
+      "description" => results.first["description"],
+      "liked" => results.first["liked"]
     }
   end
 end
