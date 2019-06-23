@@ -31,7 +31,7 @@ class Pic
 
   def self.find(id)
     results = DB.exec("SELECT * FROM pics WHERE id=#{id};")
-    if result["liked"] === 'f'
+    if results.first["liked"] === 'f'
       return {
         "id" => results.first["id"].to_i,
         "name" => results.first["name"],
