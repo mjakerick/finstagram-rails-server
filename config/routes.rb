@@ -1,3 +1,7 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  get '/pics', to: 'pics#index'
+  get '/pics/:id', to: 'pics#show'
+  post '/pics', to: 'pics#create'
+  delete '/pics/:id', to: 'pics#delete'
+  put '/pics/:id', to: 'pics#update'
 end
