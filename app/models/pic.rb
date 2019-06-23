@@ -9,23 +9,45 @@ class Pic
   def self.all
     results = DB.exec("SELECT * FROM pics;")
     return results.map do |result|
-      {
-        "id" => result["id"].to_i,
-        "name" => result["name"],
-        "picture" => result["picture"],
-        "description" => result["description"]
-      }
+      if result["liked"] === 'f'
+        {
+          "id" => result["id"].to_i,
+          "name" => result["name"],
+          "picture" => result["picture"],
+          "description" => result["description"],
+          "liked" => false
+        }
+      else
+        {
+          "id" => result["id"].to_i,
+          "name" => result["name"],
+          "picture" => result["picture"],
+          "description" => result["description"],
+          "liked" => true
+        }
+      end
     end
   end
 
   def self.find(id)
     results = DB.exec("SELECT * FROM pics WHERE id=#{id};")
-    return {
-      "id" => results.first["id"].to_i,
-      "name" => results.first["name"],
-      "picture" => results.first["picture"],
-      "description" => results.first["description"]
-    }
+    if result["liked"] === 'f'
+      return {
+        "id" => results.first["id"].to_i,
+        "name" => results.first["name"],
+        "picture" => results.first["picture"],
+        "description" => results.first["description"],
+        "liked" => false
+      }
+    else
+      {
+        "id" => results.first["id"].to_i,
+        "name" => results.first["name"],
+        "picture" => results.first["picture"],
+        "description" => results.first["description"],
+        "liked" => true
+      }
+    end
   end
 
   def self.create(opts)
