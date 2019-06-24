@@ -78,7 +78,7 @@ class Pic
         UPDATE pics
         SET name='#{opts["name"]}', picture='#{opts["picture"]}', description='#{opts["description"]}'
         WHERE id=#{id}
-        RETURNING id, name, picture, description;
+        RETURNING id, name, picture, description, liked;
       SQL
     )
     return {
