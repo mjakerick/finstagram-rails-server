@@ -40,7 +40,7 @@ class Pic
         "liked" => false
       }
     else
-      {
+      return {
         "id" => results.first["id"].to_i,
         "name" => results.first["name"],
         "picture" => results.first["picture"],
@@ -51,11 +51,13 @@ class Pic
   end
 
   def self.create(opts)
+  p 'inside create method'
+  p opts
     results = DB.exec(
       <<-SQL
-        INSERT INTO pics (name, picture, description)
-        VALUES ('#{opts["name"]}', '#{opts["picture"]}', '#{opts["description"]}')
-        RETURNING id, name, picture, description;
+        INSERT INTO pics (name, picture, description, liked)
+        VALUES ('#{opts["name"]}', '#{opts["picture"]}', '#{opts["description"]}', '#{opts["liked"]}')
+        RETURNING id, name, picture, description, liked;
       SQL
     )
     return {
@@ -76,12 +78,13 @@ class Pic
     results = DB.exec(
       <<-SQL
         UPDATE pics
-        SET name='#{opts["name"]}', picture='#{opts["picture"]}', description='#{opts["description"]}'
+        SET name='#{opts["name"]}', picture='#{opts["picture"]}', description='#{opts["description"]}, liked='#{opts["liked"]}'
         WHERE id=#{id}
         RETURNING id, name, picture, description, liked;
       SQL
     )
     return {
+      "id" => results.first["id"].to_i,
       "name" => results.first["name"],
       "picture" => results.first["picture"],
       "description" => results.first["description"],
