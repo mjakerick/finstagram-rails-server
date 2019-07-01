@@ -78,7 +78,7 @@ class Pic
     results = DB.exec(
       <<-SQL
         UPDATE pics
-        SET name='#{opts["name"]}', picture='#{opts["picture"]}', description='#{opts["description"]}, liked='#{opts["liked"]}'
+        SET name='#{opts["name"]}', picture='#{opts["picture"]}', description='#{opts["description"]}', liked='#{opts["liked"]}'
         WHERE id=#{id}
         RETURNING id, name, picture, description, liked;
       SQL
