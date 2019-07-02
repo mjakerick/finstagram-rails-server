@@ -40,7 +40,7 @@ class Pic
         "liked" => false
       }
     else
-      return {
+      {
         "id" => results.first["id"].to_i,
         "name" => results.first["name"],
         "picture" => results.first["picture"],
